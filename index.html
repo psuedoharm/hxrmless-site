@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Hxrmless</title>
-  <img src="hxrmful_cropped_falafel.png" alt="hxrmful">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
       --circle-color: #ff9900;
-      --text-color: #111;
       --bg-color: #fff;
+      --text-color: #111;
     }
 
     * {
@@ -18,11 +17,11 @@
       box-sizing: border-box;
     }
 
-    body, html {
+    html, body {
       height: 100%;
       scroll-behavior: smooth;
-      font-family: sans-serif;
-      background-color: var(--bg-color);
+      font-family: 'Arial', sans-serif;
+      background: var(--bg-color);
       color: var(--text-color);
     }
 
@@ -50,37 +49,74 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 40vmin;
-      height: auto;
-      z-index: 2;
-      border-radius: 9999px;
+      width: 30vmin;
+      height: 30vmin;
       object-fit: cover;
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+      border-radius: 9999px;
+      z-index: 2;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .tiktok-badge {
+      position: absolute;
+      top: calc(100vh + 2rem);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      background-color: #111;
+      color: #fff;
+      border-radius: 50px;
+      padding: 0.5rem 1.2rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .tiktok-badge:hover {
+      background-color: #222;
+    }
+
+    .tiktok-badge img {
+      width: 24px;
+      height: 24px;
+      margin-right: 0.7rem;
     }
 
     .content {
-      height: 300vh;
+      height: 120vh;
       padding-top: 100vh;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
+      justify-content: start;
     }
 
     .content p {
-      font-size: 2rem;
+      font-size: 1.4rem;
       text-align: center;
       max-width: 600px;
       padding: 1rem;
+      color: #444;
     }
 
     @media (max-width: 600px) {
-      .hero img {
-        width: 60vmin;
-      }
-
       .circle {
         width: 80vmin;
         height: 80vmin;
+      }
+
+      .hero img {
+        width: 50vmin;
+        height: 50vmin;
+      }
+
+      .content p {
+        font-size: 1.1rem;
+        padding: 1rem 2rem;
       }
     }
   </style>
@@ -89,23 +125,28 @@
 
   <div class="hero">
     <div class="circle" id="circle"></div>
-    <img src="hxrmful_pic.jpg" alt="hxrmful">
+    <img src="hxrmful_cropped_falafel.png" alt="hxrmful">
   </div>
+
+  <a class="tiktok-badge" href="https://www.tiktok.com/@hxrm_less" target="_blank">
+    <img src="tiktok.png" alt="TikTok"> TikTok
+  </a>
 
   <div class="content">
     <p>
-      Welcome to Hxrmless. We’re not selling products. We’re selling an idea: you are not meant to fit in.
-      <br><br>
-      Scroll down to find out more soon.
+      hxrmless is a signal through the noise.<br>
+      creativity. conflict. clarity. more soon.
     </p>
   </div>
 
   <script>
     const circle = document.getElementById("circle");
+    const img = document.querySelector(".hero img");
 
     window.addEventListener("scroll", () => {
       const scrollY = window.scrollY;
       circle.style.transform = `translate(-50%, calc(-50% - ${scrollY * 0.5}px))`;
+      img.style.transform = `translate(-50%, calc(-50% - ${scrollY * 0.2}px))`;
     });
   </script>
 
