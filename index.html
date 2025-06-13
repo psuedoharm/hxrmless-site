@@ -58,16 +58,21 @@
       transition: transform 0.3s ease;
     }
 
-    .tiktok-badge {
+    .badges {
       position: absolute;
-      top: calc(100vh + 2rem);
+      top: calc(100vh + 1rem);
       left: 50%;
       transform: translateX(-50%);
+      display: flex;
+      gap: 1rem;
+    }
+
+    .badge {
       display: flex;
       align-items: center;
       background-color: #111;
       color: #fff;
-      border-radius: 50px;
+      border-radius: 9999px;
       padding: 0.5rem 1.2rem;
       text-decoration: none;
       font-weight: 600;
@@ -76,18 +81,18 @@
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
     }
 
-    .tiktok-badge:hover {
+    .badge:hover {
       background-color: #222;
     }
 
-    .tiktok-badge img {
+    .badge img {
       width: 24px;
       height: 24px;
       margin-right: 0.7rem;
     }
 
     .content {
-      height: 120vh;
+      height: 80vh;
       padding-top: 100vh;
       display: flex;
       flex-direction: column;
@@ -96,7 +101,7 @@
     }
 
     .content p {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       text-align: center;
       max-width: 600px;
       padding: 1rem;
@@ -118,6 +123,11 @@
         font-size: 1.1rem;
         padding: 1rem 2rem;
       }
+
+      .badges {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
@@ -128,9 +138,14 @@
     <img src="hxrmful_cropped_falafel.png" alt="hxrmful">
   </div>
 
-  <a class="tiktok-badge" href="https://www.tiktok.com/@hxrm_less" target="_blank">
-    <img src="tiktok.png" alt="TikTok"> TikTok
-  </a>
+  <div class="badges">
+    <a class="badge" href="https://www.tiktok.com/@hxrm_less" target="_blank">
+      <img src="tiktok.png" alt="TikTok"> TikTok
+    </a>
+    <a class="badge" href="https://www.youtube.com/@hxrm_less" target="_blank">
+      <img src="youtube.png" alt="YouTube"> YouTube
+    </a>
+  </div>
 
   <div class="content">
     <p>
@@ -145,8 +160,8 @@
 
     window.addEventListener("scroll", () => {
       const scrollY = window.scrollY;
-      circle.style.transform = `translate(-50%, calc(-50% - ${scrollY * 0.5}px))`;
-      img.style.transform = `translate(-50%, calc(-50% - ${scrollY * 0.2}px))`;
+      circle.style.transform = `translate(-50%, calc(-50% - ${scrollY * 0.4}px))`;
+      img.style.transform = `translate(-50%, calc(-50% - ${scrollY * 0.65}px))`;
     });
   </script>
 
