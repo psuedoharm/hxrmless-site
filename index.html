@@ -21,18 +21,24 @@
 
     html, body {
       height: 100%;
-      background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3));
-      background-size: 600% 600%;
-      animation: gradientShift 30s ease infinite;
       font-family: 'Segoe UI', sans-serif;
       color: var(--text);
       overflow: hidden;
+      background-color: black;
     }
 
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('/mnt/data/72cff1a9-93db-4412-889b-009357de2749.png') center/cover no-repeat;
+      z-index: -2;
+      animation: backgroundShift 40s ease-in-out infinite alternate;
+    }
+
+    @keyframes backgroundShift {
+      0% { transform: scale(1.02) translate(0px, 0px); }
+      100% { transform: scale(1.04) translate(-3px, -3px); }
     }
 
     .hero {
@@ -43,13 +49,16 @@
       align-items: center;
       text-align: center;
       padding: 2rem;
-      animation: floatUp 20s ease-in-out infinite alternate;
       perspective: 1000px;
     }
 
-    @keyframes floatUp {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-10px); }
+    .hero-content {
+      transition: transform 0.1s ease-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      will-change: transform;
+      transform-style: preserve-3d;
     }
 
     .circle {
@@ -62,6 +71,7 @@
       justify-content: center;
       margin-bottom: 2rem;
       animation: pulse 4s ease-in-out infinite;
+      animation-delay: 0s;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
 
@@ -70,6 +80,8 @@
       height: 160px;
       border-radius: 50%;
       object-fit: cover;
+      animation: pulse 4s ease-in-out infinite;
+      animation-delay: 0.3s;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
 
@@ -107,7 +119,7 @@
       font-size: 1rem;
       transition: all 0.3s ease;
       backdrop-filter: blur(5px);
-      transform-style: preserve-3d;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
     }
 
     .badge:hover {
@@ -160,40 +172,39 @@
 </head>
 <body>
 
-  <div class="hero" id="hero">
-    <div class="circle" id="circle">
-      <img src="hxrmful_cropped_falafel.png" alt="hxrmful">
-    </div>
-    <h1>Hxrmless</h1>
-    <p>Hxrmless streams and makes content on YouTube.</p>
+  <div class="hero">
+    <div class="hero-content" id="tilt">
+      <div class="circle">
+        <img src="https://via.placeholder.com/160x160.png?text=Profile" alt="hxrmful">
+      </div>
+      <h1>Hxrmless</h1>
+      <p>Hxrmless streams and makes content on YouTube.</p>
 
-    <div class="badges" id="badges">
-      <a class="badge tiktok" href="https://www.tiktok.com/@hxrm_less" target="_blank">
-        <img src="tiktok.png" alt="TikTok"> TikTok
-      </a>
-      <a class="badge youtube" href="https://www.youtube.com/@hxrm_less" target="_blank">
-        <img src="youtube.png" alt="YouTube"> YouTube
-      </a>
+      <div class="badges">
+        <a class="badge tiktok" href="https://www.tiktok.com/@hxrm_less" target="_blank">
+          <img src="https://via.placeholder.com/38x38.png?text=TT" alt="TikTok"> TikTok
+        </a>
+        <a class="badge youtube" href="https://www.youtube.com/@hxrm_less" target="_blank">
+          <img src="https://via.placeholder.com/26x26.png?text=YT" alt="YouTube"> YouTube
+        </a>
+      </div>
     </div>
   </div>
 
   <script>
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (!isMobile) {
-      const hero = document.getElementById('hero');
-      const circle = document.getElementById('circle');
-      const badges = document.getElementById('badges');
-
+      const tilt = document.getElementById('tilt');
       document.addEventListener('mousemove', e => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 2;
-        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+        const x = (e.clientX / window.innerWidth - 0.5);
+        const y = (e.clientY / window.innerHeight - 0.5);
 
-        const rotateX = y * 8;
-        const rotateY = x * -8;
+        const moveX = x * 10;
+        const moveY = y * 10;
+        const rotateX = y * 10;
+        const rotateY = x * -10;
 
-        hero.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        badges.style.transform = `rotateX(${rotateX / 2}deg) rotateY(${rotateY / 2}deg)`;
-        circle.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        tilt.style.transform = `translate(${moveX}px, ${moveY}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
       });
     }
   </script>
