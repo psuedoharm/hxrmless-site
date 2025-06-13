@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hxrmless</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hxrmless</title>
   <style>
     :root {
-      --accent: #a887d3;
-      --text: #e0d3f7;
       --bg1: #7a5aff;
       --bg2: #9f70fd;
       --bg3: #c26cfb;
       --bg4: #ea7cfb;
+      --accent: #a887d3;
+      --text: #e0d3f7;
     }
 
     * {
@@ -25,12 +25,12 @@
       font-family: 'Segoe UI', sans-serif;
       color: var(--text);
       overflow: hidden;
-      background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
+      background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
       background-size: 400% 400%;
-      animation: gradientShift 15s ease infinite;
+      animation: gradientMove 20s ease infinite;
     }
 
-    @keyframes gradientShift {
+    @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
@@ -39,21 +39,20 @@
     .hero {
       height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
+      perspective: 1200px;
       text-align: center;
-      padding: 2rem;
-      perspective: 1000px;
     }
 
-    .hero-content {
-      transition: transform 0.1s ease-out;
+    .content {
+      transition: transform 0.2s ease;
+      transform-style: preserve-3d;
       display: flex;
       flex-direction: column;
       align-items: center;
-      will-change: transform;
-      transform-style: preserve-3d;
+      justify-content: center;
     }
 
     .circle {
@@ -64,10 +63,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: pulse1 4s infinite ease-in-out;
       margin-bottom: 2rem;
-      animation: pulse 4s ease-in-out infinite;
-      animation-delay: 0s;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
     }
 
     .circle img {
@@ -75,18 +73,21 @@
       height: 160px;
       border-radius: 50%;
       object-fit: cover;
-      animation: pulse 4s ease-in-out infinite;
-      animation-delay: 0.3s;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      animation: pulse2 4s infinite ease-in-out;
     }
 
-    @keyframes pulse {
+    @keyframes pulse1 {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.03); }
     }
 
+    @keyframes pulse2 {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.025); }
+    }
+
     h1 {
-      font-size: 2.7rem;
+      font-size: 3rem;
       margin-bottom: 0.5rem;
     }
 
@@ -103,108 +104,70 @@
     }
 
     .badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text);
-  text-decoration: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 9999px;
-  font-weight: 500;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
-  cursor: pointer;
-  width: max-content;
-}
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255,255,255,0.1);
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 9999px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+    }
 
     .badge:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.2);
       transform: translateY(-2px);
     }
 
     .badge img {
       margin-right: 0.6rem;
+      object-fit: cover;
     }
 
     .badge.tiktok img,
     .badge.discord img {
-      width: 38px;
-      height: 38px;
-      object-fit: cover;
+      width: 30px;
+      height: 30px;
     }
 
     .badge.youtube img {
       height: 26px;
     }
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
-
-      .circle {
-        width: 200px;
-        height: 200px;
-      }
-
-      .circle img {
-        width: 130px;
-        height: 130px;
-      }
-
-      .badges {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .badge {
-        transform: none !important;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="hero">
-    <div class="hero-content" id="tilt">
+    <div class="content" id="tilt">
       <div class="circle">
         <img src="hxrmful_cropped_falafel.png" alt="hxrmful">
       </div>
       <h1>Hxrmless</h1>
       <p>Hxrmless streams and makes content on YouTube.</p>
       <div class="badges">
-  <button class="badge tiktok" onclick="window.open('https://www.tiktok.com/@hxrm_less', '_blank')">
-    <img src="tiktok.png" alt="TikTok"> TikTok
-  </button>
-  <button class="badge youtube" onclick="window.open('https://www.youtube.com/@hxrm_less', '_blank')">
-    <img src="youtube.png" alt="YouTube"> YouTube
-  </button>
-  <button class="badge discord" onclick="window.open('https://discord.gg/nDWZESRYSZ', '_blank')">
-    <img src="discord.png" alt="Discord"> Discord
-  </button>
-</div>
+        <a class="badge tiktok" href="https://www.tiktok.com/@hxrm_less" target="_blank" rel="noopener noreferrer">
+          <img src="tiktok.png" alt="TikTok"> TikTok
+        </a>
+        <a class="badge youtube" href="https://www.youtube.com/@hxrm_less" target="_blank" rel="noopener noreferrer">
+          <img src="youtube.png" alt="YouTube"> YouTube
+        </a>
+        <a class="badge discord" href="https://discord.gg/nDWZESRYSZ" target="_blank" rel="noopener noreferrer">
+          <img src="discord.png" alt="Discord"> Discord
+        </a>
+      </div>
     </div>
   </div>
   <script>
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (!isMobile) {
-      const tilt = document.getElementById('tilt');
-      document.addEventListener('mousemove', e => {
-        const x = (e.clientX / window.innerWidth - 0.5);
-        const y = (e.clientY / window.innerHeight - 0.5);
-        const moveX = x * 10;
-        const moveY = y * 10;
-        const rotateX = y * 10;
-        const rotateY = x * -10;
-        tilt.style.transform = `translate(${moveX}px, ${moveY}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      });
-    }
+    const tilt = document.getElementById('tilt');
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      tilt.style.transform = `rotateX(${-y * 0.75}deg) rotateY(${x * 0.75}deg)`;
+    });
   </script>
 </body>
 </html>
