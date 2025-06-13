@@ -24,21 +24,15 @@
       font-family: 'Segoe UI', sans-serif;
       color: var(--text);
       overflow: hidden;
-      background-color: black;
+      background: radial-gradient(circle at top left, var(--bg3), var(--bg2), var(--bg1));
+      background-size: 400% 400%;
+      animation: backgroundFlow 30s ease infinite;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('/mnt/data/72cff1a9-93db-4412-889b-009357de2749.png') center/cover no-repeat;
-      z-index: -2;
-      animation: backgroundShift 40s ease-in-out infinite alternate;
-    }
-
-    @keyframes backgroundShift {
-      0% { transform: scale(1.02) translate(0px, 0px); }
-      100% { transform: scale(1.04) translate(-3px, -3px); }
+    @keyframes backgroundFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .hero {
@@ -175,17 +169,17 @@
   <div class="hero">
     <div class="hero-content" id="tilt">
       <div class="circle">
-        <img src="https://via.placeholder.com/160x160.png?text=Profile" alt="hxrmful">
+        <img src="hxrmful_cropped_falafel.png" alt="hxrmful">
       </div>
       <h1>Hxrmless</h1>
       <p>Hxrmless streams and makes content on YouTube.</p>
 
       <div class="badges">
         <a class="badge tiktok" href="https://www.tiktok.com/@hxrm_less" target="_blank">
-          <img src="https://via.placeholder.com/38x38.png?text=TT" alt="TikTok"> TikTok
+          <img src="tiktok.png" alt="TikTok"> TikTok
         </a>
         <a class="badge youtube" href="https://www.youtube.com/@hxrm_less" target="_blank">
-          <img src="https://via.placeholder.com/26x26.png?text=YT" alt="YouTube"> YouTube
+          <img src="youtube.png" alt="YouTube"> YouTube
         </a>
       </div>
     </div>
