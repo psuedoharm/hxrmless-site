@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --bg1: #2e263b;
-      --bg2: #4c3c66;
-      --bg3: #6b4a8d;
       --accent: #a887d3;
       --text: #e0d3f7;
     }
@@ -24,15 +21,28 @@
       font-family: 'Segoe UI', sans-serif;
       color: var(--text);
       overflow: hidden;
-      background: radial-gradient(circle at top left, var(--bg3), var(--bg2), var(--bg1));
-      background-size: 400% 400%;
-      animation: backgroundFlow 30s ease infinite;
+      background: black;
     }
 
-    @keyframes backgroundFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    body::before {
+      content: "";
+      position: fixed;
+      width: 300%;
+      height: 300%;
+      top: -100%;
+      left: -100%;
+      background:
+        radial-gradient(circle at 40% 40%, rgba(187, 134, 252, 0.4), transparent 40%),
+        radial-gradient(circle at 60% 60%, rgba(147, 108, 255, 0.3), transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(100, 255, 255, 0.2), transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(255, 200, 255, 0.3), transparent 50%);
+      animation: flowBG 60s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes flowBG {
+      0% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.2) rotate(360deg); }
     }
 
     .hero {
@@ -165,7 +175,6 @@
   </style>
 </head>
 <body>
-
   <div class="hero">
     <div class="hero-content" id="tilt">
       <div class="circle">
@@ -173,7 +182,6 @@
       </div>
       <h1>Hxrmless</h1>
       <p>Hxrmless streams and makes content on YouTube.</p>
-
       <div class="badges">
         <a class="badge tiktok" href="https://www.tiktok.com/@hxrm_less" target="_blank">
           <img src="tiktok.png" alt="TikTok"> TikTok
@@ -184,7 +192,6 @@
       </div>
     </div>
   </div>
-
   <script>
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (!isMobile) {
@@ -192,16 +199,13 @@
       document.addEventListener('mousemove', e => {
         const x = (e.clientX / window.innerWidth - 0.5);
         const y = (e.clientY / window.innerHeight - 0.5);
-
         const moveX = x * 10;
         const moveY = y * 10;
         const rotateX = y * 10;
         const rotateY = x * -10;
-
         tilt.style.transform = `translate(${moveX}px, ${moveY}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
       });
     }
   </script>
-
 </body>
 </html>
