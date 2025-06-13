@@ -8,6 +8,10 @@
     :root {
       --accent: #a887d3;
       --text: #e0d3f7;
+      --bg1: #7a5aff;
+      --bg2: #9f70fd;
+      --bg3: #c26cfb;
+      --bg4: #ea7cfb;
     }
 
     * {
@@ -21,28 +25,15 @@
       font-family: 'Segoe UI', sans-serif;
       color: var(--text);
       overflow: hidden;
-      background: black;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      width: 300%;
-      height: 300%;
-      top: -100%;
-      left: -100%;
-      background:
-        radial-gradient(circle at 40% 40%, rgba(187, 134, 252, 0.4), transparent 40%),
-        radial-gradient(circle at 60% 60%, rgba(147, 108, 255, 0.3), transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(100, 255, 255, 0.2), transparent 50%),
-        radial-gradient(circle at 20% 80%, rgba(255, 200, 255, 0.3), transparent 50%);
-      animation: flowBG 60s ease-in-out infinite;
-      z-index: -1;
-    }
-
-    @keyframes flowBG {
-      0% { transform: scale(1) rotate(0deg); }
-      100% { transform: scale(1.2) rotate(360deg); }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .hero {
@@ -112,19 +103,22 @@
     }
 
     .badge {
-      display: flex;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text);
-      text-decoration: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 9999px;
-      font-weight: 500;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
-    }
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  width: max-content;
+}
 
     .badge:hover {
       background: rgba(255, 255, 255, 0.2);
@@ -135,9 +129,11 @@
       margin-right: 0.6rem;
     }
 
-    .badge.tiktok img {
+    .badge.tiktok img,
+    .badge.discord img {
       width: 38px;
       height: 38px;
+      object-fit: cover;
     }
 
     .badge.youtube img {
@@ -183,13 +179,16 @@
       <h1>Hxrmless</h1>
       <p>Hxrmless streams and makes content on YouTube.</p>
       <div class="badges">
-        <a class="badge tiktok" href="https://www.tiktok.com/@hxrm_less" target="_blank">
-          <img src="tiktok.png" alt="TikTok"> TikTok
-        </a>
-        <a class="badge youtube" href="https://www.youtube.com/@hxrm_less" target="_blank">
-          <img src="youtube.png" alt="YouTube"> YouTube
-        </a>
-      </div>
+  <button class="badge tiktok" onclick="window.open('https://www.tiktok.com/@hxrm_less', '_blank')">
+    <img src="tiktok.png" alt="TikTok"> TikTok
+  </button>
+  <button class="badge youtube" onclick="window.open('https://www.youtube.com/@hxrm_less', '_blank')">
+    <img src="youtube.png" alt="YouTube"> YouTube
+  </button>
+  <button class="badge discord" onclick="window.open('https://discord.gg/nDWZESRYSZ', '_blank')">
+    <img src="discord.png" alt="Discord"> Discord
+  </button>
+</div>
     </div>
   </div>
   <script>
