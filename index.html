@@ -6,9 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     :root {
-      --orange: #ff9900;
-      --bg: #fdfdfd;
-      --text: #111;
+      --bg1: #2e263b;
+      --bg2: #4c3c66;
+      --bg3: #6b4a8d;
+      --accent: #a887d3;
+      --text: #e0d3f7;
     }
 
     * {
@@ -18,10 +20,19 @@
     }
 
     html, body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Segoe UI', sans-serif;
       height: 100%;
+      background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3));
+      background-size: 600% 600%;
+      animation: gradientShift 30s ease infinite;
+      font-family: 'Segoe UI', sans-serif;
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .hero {
@@ -32,10 +43,16 @@
       align-items: center;
       text-align: center;
       padding: 2rem;
+      animation: floatUp 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
     }
 
     .circle {
-      background: var(--orange);
+      background: var(--accent);
       width: 240px;
       height: 240px;
       border-radius: 50%;
@@ -43,6 +60,7 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 2rem;
+      animation: pulse 4s ease-in-out infinite;
     }
 
     .circle img {
@@ -50,11 +68,16 @@
       height: 160px;
       border-radius: 50%;
       object-fit: cover;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.7rem;
       margin-bottom: 0.5rem;
     }
 
@@ -73,18 +96,20 @@
     .badge {
       display: flex;
       align-items: center;
-      background: #111;
-      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
       text-decoration: none;
       padding: 0.6rem 1.2rem;
       border-radius: 9999px;
       font-weight: 500;
       font-size: 1rem;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
     }
 
     .badge:hover {
-      background: #222;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
     }
 
     .badge img {
@@ -117,6 +142,11 @@
       .circle img {
         width: 130px;
         height: 130px;
+      }
+
+      .badges {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
