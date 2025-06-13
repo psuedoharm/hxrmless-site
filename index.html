@@ -25,9 +25,8 @@
       font-family: 'Segoe UI', sans-serif;
       color: var(--text);
       overflow: hidden;
-      background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
-      background-size: 400% 400%;
-      animation: gradientMove 20s ease infinite;
+      position: relative;
+      background: none;
     }
 
     @keyframes gradientMove {
@@ -138,9 +137,39 @@
     .badge.youtube img {
       height: 26px;
     }
-  </style>
+
+    .bg-left, .bg-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to left, var(--bg3), var(--bg4));
+  z-index: -1;
+  box-shadow: -20px 0 40px rgba(0, 0, 0, 0.25);
+}
+  .bg-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, var(--bg1), var(--bg2));
+  z-index: -2;
+}
+
+
+
+
+  50%  { clip-path: path('M0,0 C20,40 20,60 0,100 L40,100 L40,0 Z'); }
+  100% { clip-path: path('M0,0 C10,20 10,80 0,100 L40,100 L40,0 Z'); }
+}
+
+</style>
 </head>
 <body>
+  <div class="bg-left"></div>
+  <div class="bg-right"></div>
   <div class="hero">
     <div class="content" id="tilt">
       <div class="circle">
