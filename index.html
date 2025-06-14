@@ -6,45 +6,72 @@
   <title>Hxrmless</title>
   <style>
     :root {
-      --bg1: #1b2631;
-      --bg2: #17202a;
-      --bg3: #5b2c6f;
-      --bg4: #633974;
-      --accent: #633974;
+      --canvas-width: 100vw;
+      --canvas-height: 100vh;
+      --layer1-color: #1e0030;
+      --layer2-color: #2a0048;
+      --layer3-color: #350060;
+      --layer4-color: #422a80;
+      --layer5-color: #5833a2;
+      --layer6-color: #7a4dd0;
+      --layer7-color: #a56be8;
+      --l1-x: 80px; --l1-y: 40px;
+      --l2-x: 90px; --l2-y: 30px;
+      --l3-x: 100px; --l3-y: 50px;
+      --l4-x: 85px; --l4-y: 35px;
+      --l5-x: 95px; --l5-y: 45px;
+      --l6-x: 105px; --l6-y: 28px;
+      --l7-x: 90px; --l7-y: 48px;
+      --oversizeX: 200px;
+      --oversizeY: 200px;
+      --frost-opacity: 0.3;
+      --base-blur: 4px;
       --text: #e0d3f7;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     html, body {
-      height: 100%;
+      margin: 0;
+      width: var(--canvas-width);
+      height: var(--canvas-height);
+      overflow: hidden;
+      background: #000;
       font-family: 'Segoe UI', sans-serif;
       color: var(--text);
-      overflow: hidden;
       position: relative;
-      background: none;
     }
-
-    /* Noise overlay */
-    .noise-overlay {
+    svg#waves {
+      display: block;
+      width: calc(var(--canvas-width) + var(--oversizeX)*2);
+      height: calc(var(--canvas-height) + var(--oversizeY)*2);
+      margin-left: calc(var(--oversizeX)*-1);
+      margin-top: calc(var(--oversizeY)*-1);
       position: absolute;
-      top: -5%;
-      left: -5%;
-      width: 110%;
-      height: 110%;
+      top: 0;
+      left: 0;
+      z-index: 0;
       pointer-events: none;
-      /* Replace with uploaded noise.png for subtle grain */
-      background-image: url("noise.png");
-      background-repeat: repeat;
-      opacity: 0.05;
-      z-index: -3;
     }
-
+    svg path {
+      fill: currentColor;
+      fill-opacity: var(--frost-opacity);
+      stroke: rgba(255,255,255,0.15);
+      stroke-width: 1px;
+      stroke-linejoin: round;
+      transform-box: fill-box;
+      transform-origin: center bottom;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+      backdrop-filter: blur(var(--base-blur));
+      -webkit-backdrop-filter: blur(var(--base-blur));
+    }
+    .layer1 { color: var(--layer1-color); backdrop-filter: blur(calc(var(--base-blur)+1px)); }
+    .layer2 { color: var(--layer2-color); backdrop-filter: blur(calc(var(--base-blur)+2px)); }
+    .layer3 { color: var(--layer3-color); backdrop-filter: blur(calc(var(--base-blur)+3px)); }
+    .layer4 { color: var(--layer4-color); backdrop-filter: blur(calc(var(--base-blur)+4px)); }
+    .layer5 { color: var(--layer5-color); backdrop-filter: blur(calc(var(--base-blur)+5px)); }
+    .layer6 { color: var(--layer6-color); backdrop-filter: blur(calc(var(--base-blur)+6px)); }
+    .layer7 { color: var(--layer7-color); backdrop-filter: blur(calc(var(--base-blur)+7px)); }
     .hero {
+      position: relative;
+      z-index: 1;
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -53,18 +80,16 @@
       perspective: 1200px;
       text-align: center;
     }
-
     .content {
-      transition: transform 0.2s ease;
       transform-style: preserve-3d;
+      transition: transform 0.2s ease;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
-
     .circle {
-      background: var(--accent);
+      background: #633974;
       width: 240px;
       height: 240px;
       border-radius: 50%;
@@ -72,169 +97,99 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      animation: pulse1 4s infinite ease-in-out;
-      margin-bottom: 2rem;
+      animation: pulse 4s infinite ease-in-out;
+      margin-top: 0; margin-bottom: 1rem;
     }
-
     .circle img {
       width: 160px;
       height: 160px;
       border-radius: 50%;
       object-fit: cover;
-      animation: pulse2 4s infinite ease-in-out;
+      animation: pulse 4s infinite ease-in-out;
     }
-
-    @keyframes pulse1 {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.03); }
-    }
-
-    @keyframes pulse2 {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.025); }
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-
-    .badges {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
+    @keyframes pulse { 0%,100%{transform:scale(1);}50%{transform:scale(1.03);} }
+    h1 { font-size: 4rem; margin-bottom: 0.25rem; }
+    p { font-size: 1.2rem; margin-bottom: 2rem; }
+    .badges { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
     .badge {
-      display: inline-flex;
-      align-items: center;
+      display: inline-flex; align-items: center;
       background: rgba(255,255,255,0.1);
-      color: var(--text);
-      text-decoration: none;
       padding: 0.6rem 1.2rem;
       border-radius: 9999px;
       font-weight: 500;
       font-size: 1rem;
-      transition: all 0.3s ease;
+      text-decoration: none;
+      color: var(--text);
       backdrop-filter: blur(5px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+      transition: background .3s, transform .3s;
       cursor: pointer;
     }
-
-    .badge:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-2px);
-    }
-
-    .badge img {
-      margin-right: 0.6rem;
-      object-fit: cover;
-    }
-
-    .badge.tiktok img,
-    .badge.discord img {
-      width: 30px;
-      height: 30px;
-    }
-
-    .badge.youtube img {
-      height: 26px;
-    }
-
-    body::before {
-      content: '';
-      position: absolute;
-      top: -5%;
-      left: -5%;
-      width: 110%;
-      height: 110%;
-      z-index: -4;
-      background: linear-gradient(to right, var(--bg1) 0%, var(--bg1) 30%, var(--bg2) 70%, var(--bg2) 100%);
-    }
-
-    .layer-wave {
-      backdrop-filter: blur(10px);
-      position: absolute;
-      top: -5%;
-      left: -5%;
-      width: 110%;
-      height: 110%;
-      overflow: visible;
-      z-index: -2;
-    }
-
-    .about-animated {
-      animation: bobble 3s ease-in-out infinite;
-    }
-
-    .about-title-animated {
-      animation: bobble-title 3s ease-in-out infinite;
-    }
-
-    @keyframes bobble {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
-    }
-
-    @keyframes bobble-title {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-3px); }
-    }
+    .badge:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+    .about-animated { animation: bobble 3s ease-in-out infinite; }
+    .about-title-animated { animation: bobble-title 3s ease-in-out infinite; }
+    @keyframes bobble { 0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);} }
+    @keyframes bobble-title { 0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);} }
   </style>
 </head>
 <body>
-    <div class="noise-overlay"></div>
-  <div class="layer-wave">
-    <svg viewBox="0 0 100 350" preserveAspectRatio="none" style="width:100%; height:100%; display:block;">
-      <defs>
-        <linearGradient id="waveGrad" x1="1" y1="0" x2="0" y2="0">
-          <stop offset="0%" stop-color="#512e5f80"/>
-          <stop offset="100%" stop-color="#76448a80"/>
-        </linearGradient>
-        <filter id="waveShadow" x="-50%" y="-50%" width="200%" height="200%">
-          <feDropShadow dx="-10" dy="0" stdDeviation="10" flood-color="rgba(0,0,0,0.3)"/>
-        </filter>
-      </defs>
-      <path d="M100,0 C80,30 60,60 40,90 C20,120 40,150 60,180 C80,210 60,240 40,270 C20,300 0,330 0,350 L100,350 L100,0Z"
-            fill="url(#waveGrad)" filter="url(#waveShadow)"/>
-    </svg>
-  </div>
+  <svg id="waves" viewBox="0 0 1200 800" preserveAspectRatio="none">
+    <path class="layer1" d="M0,0 L1200,0 L1200,800 C1000,850 800,750 600,800 C400,850 200,700 0,800 Z"/>
+    <path class="layer2" d="M0,0 L1200,0 L1200,750 C1000,800 800,700 600,750 C400,800 200,650 0,750 Z"/>
+    <path class="layer3" d="M0,0 L1200,0 L1200,700 C1000,750 800,650 600,700 C400,750 200,600 0,700 Z"/>
+    <path class="layer4" d="M0,0 L1200,0 L1200,650 C1000,700 800,600 600,650 C400,700 200,550 0,650 Z"/>
+    <path class="layer5" d="M0,0 L1200,0 L1200,600 C1000,650 800,550 600,600 C400,650 200,500 0,600 Z"/>
+    <path class="layer6" d="M0,0 L1200,0 L1200,550 C1000,600 800,500 600,550 C400,600 200,450 0,550 Z"/>
+    <path class="layer7" d="M0,0 L1200,0 L1200,500 C1000,550 800,450 600,500 C400,550 200,400 0,500 Z"/>
+  </svg>
   <div class="hero">
     <div class="content" id="tilt">
-      <div class="circle">
-        <img src="hxrmful_cropped_falafel.png" alt="hxrmful">
-      </div>
-      <h1 style="font-size: 4rem; margin-bottom: 1rem;">HXRMLESS</h1>
-      <p>Join the<br>HXRM fam!</p>
+      <div class="circle"><img src="hxrmful_cropped_falafel.png" alt="hxrmful"></div>
+      <h1>HXRMLESS</h1>
+      <p>Join the HXRM fam!</p>
       <div class="badges">
-        <a class="badge tiktok" href="https://www.tiktok.com/@hxrm_less" target="_blank" rel="noopener noreferrer">
-          <img src="tiktok.png" alt="TikTok"> TikTok
-        </a>
-        <a class="badge youtube" href="https://www.youtube.com/@hxrm_less" target="_blank" rel="noopener noreferrer">
-          <img src="youtube.png" alt="YouTube"> YouTube
-        </a>
-        <a class="badge discord" href="https://discord.gg/nDWZESRYSZ" target="_blank" rel="noopener noreferrer">
-          <img src="discord.png" alt="Discord"> Discord
-        </a>
+        <a class="badge tiktok" href="https://www.tiktok.com/@hxrm_less" target="_blank"><img src="tiktok.png" alt="TikTok"> TikTok</a>
+        <a class="badge youtube" href="https://www.youtube.com/@hxrm_less" target="_blank"><img src="youtube.png" alt="YouTube"> YouTube</a>
+        <a class="badge discord" href="https://discord.gg/nDWZESRYSZ" target="_blank"><img src="discord.png" alt="Discord"> Discord</a>
       </div>
-      <div style="max-width: 600px; padding: 2rem; text-align: center; font-size: 1rem; line-height: 1.6;">
-        <h2 class="about-title-animated" style="font-size: 1.5rem; margin-bottom: 0.5rem;">About Me</h2>
+      <div style="max-width:600px; padding: 0.5rem 1rem; text-align:center; font-size:1rem; line-height:1.6;">
+        <h2 class=\"about-title-animated\" style=\"margin-bottom: 0rem;\">About Me</h2>
         <p class="about-animated">I’m a Palestinian-American streamer and content creator. I love Ratatouille (the movie, not just the food). Fun fact: My favorite object is a default cube.</p>
       </div>
     </div>
   </div>
   <script>
+    const layers = Array.from(document.querySelectorAll('#waves path')).map((el, i) => {
+      const idx = i+1;
+      const ax = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--l${idx}-x`));
+      const ay = parseFloat(getComputedStyle(document.documentElement).getPropertyValue(`--l${idx}-y`));
+      const strength = 0.4 + i*0.1;
+      return { el, ax, ay, dx:0, dy:0, speed:0.5 + idx*0.1, strength };
+    });
+    let targetX=0, targetY=0;
+    document.addEventListener('mousemove', e => {
+      targetX = (e.clientX/window.innerWidth)*2 - 1;
+      targetY = (e.clientY/window.innerHeight)*2 - 1;
+    });
+    function animate() {
+      const t = performance.now()/1000;
+      layers.forEach(layer => {
+        const autoX = Math.sin(t*layer.speed)*(layer.ax/5);
+        const autoY = Math.cos(t*layer.speed*1.2)*(layer.ay/5);
+        const desiredDX = targetX*layer.ax*layer.strength;
+        const desiredDY = targetY*layer.ay*layer.strength;
+        layer.dx += (desiredDX - layer.dx)*0.05;
+        layer.dy += (desiredDY - layer.dy)*0.05;
+        layer.el.style.transform = `translate(${layer.dx+autoX}px,${layer.dy+autoY}px)`;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
     const tilt = document.getElementById('tilt');
-    document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 20;
-      tilt.style.transform = `rotateX(${-y * 0.75}deg) rotateY(${x * 0.75}deg)`;
+    document.addEventListener('mousemove', e => {
+      const x=(e.clientX/window.innerWidth-0.5)*20;
+      const y=(e.clientY/window.innerHeight-0.5)*20;
+      tilt.style.transform = `rotateX(${-y*0.75}deg) rotateY(${x*0.75}deg)`;
     });
   </script>
 </body>
