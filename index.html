@@ -24,8 +24,8 @@
       --l7-x: 90px; --l7-y: 48px;
       --oversizeX: 200px;
       --oversizeY: 200px;
-      --frost-opacity: 0.3;
-      --base-blur: 4px;
+      --frost-opacity: 1;
+      --base-blur: 0px;
       --text: #e0d3f7;
     }
     html, body {
@@ -59,16 +59,14 @@
       transform-box: fill-box;
       transform-origin: center bottom;
       filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-      backdrop-filter: blur(var(--base-blur));
-      -webkit-backdrop-filter: blur(var(--base-blur));
     }
-    .layer1 { color: var(--layer1-color); backdrop-filter: blur(calc(var(--base-blur)+1px)); }
-    .layer2 { color: var(--layer2-color); backdrop-filter: blur(calc(var(--base-blur)+2px)); }
-    .layer3 { color: var(--layer3-color); backdrop-filter: blur(calc(var(--base-blur)+3px)); }
-    .layer4 { color: var(--layer4-color); backdrop-filter: blur(calc(var(--base-blur)+4px)); }
-    .layer5 { color: var(--layer5-color); backdrop-filter: blur(calc(var(--base-blur)+5px)); }
-    .layer6 { color: var(--layer6-color); backdrop-filter: blur(calc(var(--base-blur)+6px)); }
-    .layer7 { color: var(--layer7-color); backdrop-filter: blur(calc(var(--base-blur)+7px)); }
+    .layer1 { color: var(--layer1-color); }
+    .layer2 { color: var(--layer2-color); }
+    .layer3 { color: var(--layer3-color); }
+    .layer4 { color: var(--layer4-color); }
+    .layer5 { color: var(--layer5-color); }
+    .layer6 { color: var(--layer6-color); }
+    .layer7 { color: var(--layer7-color); }
     .hero {
       position: relative;
       z-index: 1;
@@ -89,7 +87,7 @@
       justify-content: center;
     }
     .circle {
-      background: #333333;
+      background: #d4c2fc;
       width: 240px;
       height: 240px;
       border-radius: 50%;
@@ -98,8 +96,10 @@
       justify-content: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
       animation: pulse 4s infinite ease-in-out;
-      margin-top: 0; margin-bottom: 1rem;
+      margin-top: 30px; /* <-- added */
+      margin-bottom: 1rem;
     }
+
     .circle img {
       width: 160px;
       height: 160px;
@@ -159,8 +159,8 @@
         <a class="badge discord" href="https://discord.gg/nDWZESRYSZ" target="_blank"><img src="discord.png" alt="Discord"> Discord</a>
       </div>
       <div style="max-width:600px; padding: 0.5rem 1rem; text-align:center; font-size:1rem; line-height:1.6;">
-        <h2 class=\"about-title-animated\" style=\"margin-bottom: 0rem;\">About Me</h2>
-        <p class="about-animated">I’m an American-Palestinian streamer and content creator. I love Ratatouille (the movie, not just the food). Fun fact: My favorite object is a default cube.</p>
+        <h2 class="about-title-animated" style="margin-bottom: 0rem;">About Me</h2>
+        <p class="about-animated">I’m a Palestinian-American streamer and content creator. I love Ratatouille (the movie, not just the food). Fun fact: My favorite object is a default cube.</p>
       </div>
     </div>
   </div>
