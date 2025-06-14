@@ -29,6 +29,9 @@
       background: none;
     }
 
+    
+    }
+
     .hero {
       height: 100vh;
       display: flex;
@@ -135,40 +138,66 @@
     body::before {
       content: '';
       position: absolute;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -3;
-      background: linear-gradient(to right, var(--bg1), var(--bg2));
+      top: -5%;
+      left: -5%;
+      width: 110%;
+      height: 110%;
+      z-index: -4;
+      background: linear-gradient(to right, var(--bg1) 0%, var(--bg1) 30%, var(--bg2) 70%, var(--bg2) 100%);
     }
 
     .layer-wave {
+      backdrop-filter: blur(10px);
+      position: absolute;
+      top: -5%;
+      left: -5%;
+      width: 110%;
+      height: 110%;
+      overflow: visible;
+      z-index: -2;
+    }
+
+    /* Noise overlay on right wave only */
+    .layer-wave::after {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      overflow: visible;
-      z-index: -2;
+      background-image: url("noise.jpg");
+      background-repeat: repeat;
+      opacity: 0.05;
+      pointer-events: none;
     }
 
     .about-animated {
       animation: bobble 3s ease-in-out infinite;
     }
 
+    .about-title-animated {
+      animation: bobble-title 3s ease-in-out infinite;
+    }
+
     @keyframes bobble {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-6px); }
     }
+
+    @keyframes bobble-title {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
   </style>
 </head>
 <body>
+    
   <div class="layer-wave">
     <svg viewBox="0 0 100 350" preserveAspectRatio="none" style="width:100%; height:100%; display:block;">
       <defs>
         <linearGradient id="waveGrad" x1="1" y1="0" x2="0" y2="0">
-          <stop offset="0%" stop-color="var(--bg3)"/>
-          <stop offset="100%" stop-color="var(--bg4)"/>
+          <stop offset="0%" stop-color="#512e5f80"/>
+          <stop offset="100%" stop-color="#76448a80"/>
         </linearGradient>
         <filter id="waveShadow" x="-50%" y="-50%" width="200%" height="200%">
           <feDropShadow dx="-10" dy="0" stdDeviation="10" flood-color="rgba(0,0,0,0.3)"/>
@@ -197,7 +226,7 @@
         </a>
       </div>
       <div style="max-width: 600px; padding: 2rem; text-align: center; font-size: 1rem; line-height: 1.6;">
-        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">About Me</h2>
+        <h2 class="about-title-animated" style="font-size: 1.5rem; margin-bottom: 0.5rem;">About Me</h2>
         <p class="about-animated">I’m a Palestinian-American streamer and content creator. I love Ratatouille (the movie, not just the food). Fun fact: My favorite object is a default cube.</p>
       </div>
     </div>
