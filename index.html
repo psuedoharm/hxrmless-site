@@ -136,6 +136,49 @@
     .about-title-animated { animation: bobble-title 3s ease-in-out infinite; }
     @keyframes bobble { 0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);} }
     @keyframes bobble-title { 0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);} }
+    @media screen and (max-width: 768px) {
+  .circle {
+    width: 180px;
+    height: 180px;
+    margin-bottom: 0.5rem;
+  }
+
+  .circle img {
+    width: 120px;
+    height: 120px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .badge {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .badge img {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  .about-animated {
+    font-size: 0.9rem;
+    padding: 0 1rem;
+  }
+
+  .hero {
+    height: auto;
+    padding-bottom: 2rem;
+  }
+}
+
   </style>
 </head>
 <body>
