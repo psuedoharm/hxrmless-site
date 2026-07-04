@@ -46,6 +46,11 @@ body {
   z-index: 0;
   filter: blur(100px);
   pointer-events: none;
+  animation: orbs-bloom 2.4s ease-out both;
+}
+@keyframes orbs-bloom {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 .orb { position: absolute; border-radius: 50%; will-change: transform; }
 
@@ -125,6 +130,12 @@ body {
   align-items: center;
   text-align: center;
   padding: 2rem;
+  /* whole scene drifts down from a slight zoom — the "camera" settling */
+  animation: scene-settle 2s var(--ease-apple) both;
+}
+@keyframes scene-settle {
+  from { transform: scale(1.045); }
+  to   { transform: scale(1); }
 }
 
 /* staged entrance: blur-up reveal, Apple product-page style */
@@ -132,11 +143,25 @@ body {
   opacity: 0;
   transform: translateY(16px);
   filter: blur(12px);
-  animation: rise 1s var(--ease-apple) forwards;
+  animation: rise 1s var(--ease-apple) both;
   animation-delay: var(--d, 0s);
 }
 @keyframes rise {
   to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* rack-focus intro: wordmark starts oversized + defocused, pulls sharp.
+   pure transform + filter, so it's all compositor work — no reflow */
+.intro-focus {
+  transform-origin: 50% 60%;
+  animation: rack-focus 1.5s var(--ease-apple) both;
+  animation-delay: 0.05s;
+  will-change: transform, filter, opacity;
+}
+@keyframes rack-focus {
+  0%   { opacity: 0; transform: scale(1.4);  filter: blur(34px); }
+  35%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1);    filter: blur(0); }
 }
 
 /* ---------- avatar ---------- */
@@ -319,8 +344,8 @@ h1 em {
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-  .orb, .av-wrap::before, h1 em { animation: none; }
-  .reveal { animation: none; opacity: 1; transform: none; filter: none; }
+  .orb, .orbs, .content, .av-wrap::before, h1 em { animation: none; }
+  .reveal, .intro-focus { animation: none; opacity: 1; transform: none; filter: none; }
   .spotlight { display: none; }
   .lnk, .lnk::before, .lnk::after, .arr { transition: none; }
 }
@@ -339,7 +364,7 @@ h1 em {
 <div class="vignette" aria-hidden="true"></div>
 
 <main class="content">
-  <div class="av-wrap reveal" style="--d: 0s">
+  <div class="av-wrap reveal" style="--d: 1s">
     <div class="av">
       <span class="av-mono" aria-hidden="true">H</span>
       <img src="hxrmful_cropped_falafel.png" alt="hxrmless"
@@ -347,25 +372,25 @@ h1 em {
     </div>
   </div>
 
-  <h1 class="reveal" style="--d: 0.1s">HXRM<em>LESS</em></h1>
-  <p class="sub reveal" style="--d: 0.2s">join the hxrm fam below</p>
+  <h1 class="intro-focus">HXRM<em>LESS</em></h1>
+  <p class="sub reveal" style="--d: 1.15s">join the hxrm fam below</p>
 
   <nav class="links" aria-label="social links">
-    <a class="lnk reveal" style="--d: 0.32s" href="https://www.tiktok.com/@hxrm_less" target="_blank" rel="noopener">
+    <a class="lnk reveal" style="--d: 1.3s" href="https://www.tiktok.com/@hxrm_less" target="_blank" rel="noopener">
       <span class="lnk-l">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.24 8.24 0 004.82 1.55V6.79a4.85 4.85 0 01-1.05-.1z"/></svg>
         TikTok
       </span>
       <span class="arr" aria-hidden="true">↗</span>
     </a>
-    <a class="lnk reveal" style="--d: 0.4s" href="https://www.youtube.com/@hxrm_less" target="_blank" rel="noopener">
+    <a class="lnk reveal" style="--d: 1.4s" href="https://www.youtube.com/@hxrm_less" target="_blank" rel="noopener">
       <span class="lnk-l">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.19a3.02 3.02 0 00-2.12-2.14C19.54 3.59 12 3.59 12 3.59s-7.54 0-9.38.49A3.02 3.02 0 00.5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 002.12 2.14c1.84.49 9.38.49 9.38.49s7.54 0 9.38-.49a3.02 3.02 0 002.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.52V8.48L15.5 12l-5.75 3.52z"/></svg>
         YouTube
       </span>
       <span class="arr" aria-hidden="true">↗</span>
     </a>
-    <a class="lnk reveal" style="--d: 0.48s" href="https://discord.gg/Ddhaj2aSVB" target="_blank" rel="noopener">
+    <a class="lnk reveal" style="--d: 1.5s" href="https://discord.gg/Ddhaj2aSVB" target="_blank" rel="noopener">
       <span class="lnk-l">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.32 4.37A19.8 19.8 0 0015.53 3c-.21.38-.46.88-.63 1.28a18.29 18.29 0 00-5.8 0C8.93 3.88 8.67 3.38 8.46 3a19.74 19.74 0 00-4.8 1.38C.53 9.04-.32 13.6.1 18.09a20.02 20.02 0 006.1 3.1c.49-.67.93-1.38 1.3-2.13a12.96 12.96 0 01-2.05-.99c.17-.13.34-.26.5-.4a14.28 14.28 0 0012.1 0c.16.14.33.27.5.4-.65.39-1.34.72-2.05.99.38.75.81 1.46 1.3 2.13a19.94 19.94 0 006.1-3.1c.51-5.18-.87-9.7-3.58-13.72zM8.02 15.33c-1.25 0-2.27-1.17-2.27-2.6s1-2.6 2.27-2.6c1.27 0 2.3 1.16 2.27 2.6 0 1.43-1 2.6-2.27 2.6zm8.01 0c-1.25 0-2.27-1.17-2.27-2.6s1-2.6 2.27-2.6c1.27 0 2.3 1.16 2.27 2.6 0 1.43-1 2.6-2.27 2.6z"/></svg>
         Discord
